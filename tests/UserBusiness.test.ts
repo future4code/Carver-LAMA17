@@ -1,4 +1,3 @@
-import { TestScheduler } from "jest";
 import { UserBusiness } from "../src/business/UserBusiness";
 import { AuthenticatorMock } from "./mocks/AuthenticatorMock";
 import { HashManagerMock } from "./mocks/HashManagerMock";
@@ -13,16 +12,14 @@ const userBusinessMock = new UserBusiness(
     new UserDataBaseMock() as any
 )
 
-describe("teste de signUp", () => {
-
-    test("Erro que deve retornar quando o nome está vazio", async () => {
-        expect.assertions(2)
-        
+describe("teste", () => {
+    test("Sucesso no cadastro e verificação do token de acesso", async () => {
+        expect.assertions
         try {
-            await userBusinessMock.createUser("", "email@email.com", "123", "ADMIN")
-        } catch (e: any) {
-            expect(e.message).toEqual("Missing input")
-            expect(e.statusCode).toBe(422)
+    const accessToken = await userBusinessMock.createUser("astrodev", "astrodev@gmail.com", "astrodev123", "ADMIN")
+            expect(accessToken).toEqual({"accessToken": "token_mockado"})
+        } catch (error: any) {
+            console.log(error)
         }
     })
 })

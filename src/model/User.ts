@@ -63,9 +63,6 @@ export class User{
         return new User(user.id, user.name, user.email, user.password, user.role);
       }
 
-
-
-
 export interface UserInputDTO{
     email: string;
     password: string;

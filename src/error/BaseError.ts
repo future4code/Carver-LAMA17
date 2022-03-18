@@ -1,7 +1,8 @@
 export class BaseError extends Error {
     constructor( 
       public code: number,
-      message: string
+      message: string,
+      
   ) {
       super(message);
     }

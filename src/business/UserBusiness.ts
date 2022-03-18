@@ -1,4 +1,3 @@
-import { LoginInputDTO } from "../model/User";
 import { UserDatabase } from "../data/UserDatabase";
 import { IdGenerator } from "../services/IdGenerator";
 import { HashManager } from "../services/HashManager";
@@ -50,14 +49,15 @@ export class UserBusiness {
                 role,
             });
             return { accessToken };
-        } catch (error: any) {
+        } catch (error:any) {
+          if(error instanceof BaseError){
             if (error.message.includes("key 'email'")) {
                 throw new BaseError(409, "Email already in use")
             }
 
-            throw new BaseError(error.statusCode, error.message)
+            throw new BaseError(409, error.message)
         }
-
+        }
     }
 
 

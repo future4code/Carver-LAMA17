@@ -1,5 +1,6 @@
 import BaseDataBase from "./BaseDatabase";
 import { User } from "../model/User";
+import { BaseError } from "../error/BaseError";
 
 export class UserDatabase extends BaseDataBase {
 
@@ -30,7 +31,7 @@ export class UserDatabase extends BaseDataBase {
             '${user.getRole()}'
             )`
          );
-      } catch (error :any) {
+      } catch (error:any) {
          throw new Error(error.sqlMessage || error.message)
       }
    }
@@ -52,8 +53,10 @@ export class UserDatabase extends BaseDataBase {
             SELECT * from ${this.tableName} WHERE id = '${id}'
          `);
          return this.toModel(result[0][0]);
-      } catch (error :any) {
-         throw new Error(error.sqlMessage || error.message)
+      } catch (error) {
+         if(error instanceof BaseError){
+         throw new Error(error.message)
+         }
       }
    }
 
